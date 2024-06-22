@@ -1,0 +1,78 @@
+.image{
+    height: 50vh;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(201, 207, 207);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth_view{
+    width: 50vw;
+    height: 70vh;
+    background-color: white;
+    display: flex;
+    border-radius: 15px;
+}
+.flex1{
+    flex: 1;
+}
+.auth_data{
+    flex: 1;
+    background-color: rgb(214, 211, 211);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.input{
+    height: 40px;
+    width: 80%;
+    border-radius: 10px;
+    outline: none;
+    box-shadow: none;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.input:focus {
+    border: 2px solid black;
+    outline: none; /* Убрать линию фокуса */
+    box-shadow: none; /* Убрать тень фокуса */
+  }
+
+
+.input_title{
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    padding-left: 10%;
+    align-items: flex-start;
+}
+
+.button{
+    height: 40px;
+    width: 40%;
+    background-color: rgb(49, 115, 214);
+    border-radius: 10px;
+}
+
+.button_text{
+    color: white;
+    font-size: 20px;
+}

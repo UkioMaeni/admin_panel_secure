@@ -1,0 +1,28 @@
+.base_nav_body{
+    display: flex;
+    padding: 20px;
+}
+
+.base_nav_body_info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.base_nav_body_update{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.title_base{
+    font-size: 25px;
+}
+
+.base_btn{
+    padding: 5px 20px;
+    color: white;
+    border-radius: 5px;
+}

@@ -1,0 +1,30 @@
+.access_nav{
+    flex: 1;
+    
+}
+
+.togle_access{
+    display: flex;
+    height: 101px;
+    border-bottom: 1px solid black;
+    align-items: flex-end;
+    
+    
+}
+
+.togle_item{
+    padding: 0 40px;
+    height: 40px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    
+}
+
+.togle_item_variable{
+    padding: 0 40px;
+    height: 40px;
+    background-color: rgb(51, 114, 90);
+    color: white;
+    cursor: pointer;
+}

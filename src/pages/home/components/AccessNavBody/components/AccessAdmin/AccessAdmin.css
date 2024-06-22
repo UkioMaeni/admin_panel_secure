@@ -1,0 +1,66 @@
+.access_admin{
+    padding: 50px;
+    display: flex;
+    
+    
+}
+
+.access_admin_list{
+    
+    height: 300px;
+    width: 200px;
+    border: 1px solid black;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    
+}
+
+.access_admin_list_item{
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+.variable_item{
+    background-color: rgb(103, 165, 144);
+}
+
+.access_admin_info{
+    margin-left: 20px;
+    padding-top: 40px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.access_admin_add{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.access_admin_btn{
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+}
+
+.bgblue{
+    background-color: rgb(67, 69, 192);
+}
+
+.input_home{
+    display: flex;
+    align-items: end;
+    width: 300px;
+    height: 40px;
+}
+
+.access_admin_add_title{
+    font-size: 30px;
+}

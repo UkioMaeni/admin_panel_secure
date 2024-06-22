@@ -1,0 +1,39 @@
+.home{
+    display: flex;
+}
+
+.loader{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav{
+    height: 100vh;
+    background-color: rgb(42, 48, 48);
+}
+.nav_title{
+    width: 300px;
+    height: 40px;
+    background-color: rgb(31, 141, 141);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.nav_title:hover{
+    background-color: rgb(70, 145, 145);
+}
+.nav_current_title{
+    background-color: aliceblue;
+    height: 100px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.body_nav{
+    flex:1
+}
