@@ -1,7 +1,11 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 
 import './AccessAdmin.css';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { config } from "../../../../../../config/config";
+import { useAppDispatch, useAppSelector } from "../../../../../../store/customHooks/customReactReduxHooks";
+import { editAdmins } from "../../../../../../store/slices/navSlice";
 
 type AccessItem={
     login:string,
@@ -18,13 +22,61 @@ const AccessAdmin:FC =()=>{
     const [variableAccess,setVariableAccess]=useState<number>(-1)
     const [login,setLogin]=useState<string>("");
     const [pass,setPass]=useState<string>("");
+    const dispatch=useAppDispatch()
+    const {adminsPanel}=useAppSelector((state)=>state.navSlice);
 
     const deleteAccess=async()=>{
-
+        try {
+            const result=await axios.delete(
+                config.baseHttpUrl+"/admin/admin_list",
+                {
+                    data:{
+                        "id":adminsPanel[variableAccess].id
+                    }
+                }
+            )
+            //console.log(result.data);
+            getAdmins();
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
     const addAccess=async()=>{
-
+        try {
+            const result=await axios.post(
+                config.baseHttpUrl+"/admin/admin_list",
+                {
+                    login:login,
+                    pass:pass
+                }
+            )
+            //console.log(result.data);
+            getAdmins()
+            setLogin("")
+            setPass("")
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
+
+    const getAdmins=async()=>{
+        try {
+            const result=await axios.get(
+                config.baseHttpUrl+"/admin/admin_list",
+            )
+            //console.log(result.data);
+            dispatch(editAdmins(result.data))
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
+    useEffect(()=>{
+        if(adminsPanel.length==0) getAdmins()
+    },[])
 
     return(
         <div className="access_admin">
@@ -32,16 +84,16 @@ const AccessAdmin:FC =()=>{
                 <div>Список лиц</div>
                 <br/>
                 <div className="access_admin_list">
-                    {accessList.map((element,index)=>{
-                        return <div onClick={()=>setVariableAccess(index)} className={`${variableAccess==index?"variable_item":""} access_admin_list_item`}>{element.login}</div>
+                    {adminsPanel.map((element,index)=>{
+                        return <div key={index} onClick={()=>setVariableAccess(index)} className={`${variableAccess==index?"variable_item":""} access_admin_list_item`}>{element.login}</div>
                     })}
                     
                 </div>
             </div>
             {variableAccess!=-1?(
                 <div className="access_admin_info">
-                    <div>{accessList[variableAccess].login}</div>
-                    <div onClick={deleteAccess} className="access_admin_btn">Удалить</div>
+                    <div>{adminsPanel[variableAccess].login}</div>
+                    <div onClick={()=>deleteAccess()} className="access_admin_btn">Удалить</div>
                 </div>
             ):<div className="access_admin_info"/>}
             <div className="access_admin_add">

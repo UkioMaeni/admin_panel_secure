@@ -1,7 +1,11 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 
 import './AccessSpecials.css';
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../../../store/customHooks/customReactReduxHooks";
+import axios from "axios";
+import { config } from "../../../../../../config/config";
+import { editPbList } from "../../../../../../store/slices/navSlice";
 
 type AccessItem={
     login:string,
@@ -10,36 +14,82 @@ type AccessItem={
 
 const AccessSpecials:FC =()=>{
     const navigate = useNavigate();
-    const accessList:Array<AccessItem>=[
-        {login:'root',id:0},
-        {login:'admin',id:1},
-        {login:'zam',id:2}
-    ];
+
     const [variableAccess,setVariableAccess]=useState<number>(-1)
     const [login,setLogin]=useState<string>("");
     const [pass,setPass]=useState<string>("");
-    const deleteAccess=async()=>{
+    const dispatch=useAppDispatch()
+    const {pbList}=useAppSelector((state)=>state.navSlice);
 
+    const deleteAccess=async()=>{
+        try {
+            const result=await axios.delete(
+                config.baseHttpUrl+"/admin/pb_list",
+                {
+                    data:{
+                        "id":pbList[variableAccess].id
+                    }
+                }
+            )
+            
+            getAdmins();
+            setVariableAccess(-1)
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
     const addAccess=async()=>{
-
+        try {
+            const result=await axios.post(
+                config.baseHttpUrl+"/admin/pb_list",
+                {
+                    login:login,
+                    pass:pass
+                }
+            )
+            
+            getAdmins()
+            setLogin("")
+            setPass("")
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
+
+    const getAdmins=async()=>{
+        try {
+            const result=await axios.get(
+                config.baseHttpUrl+"/admin/pb_list",
+            )
+            
+            dispatch(editPbList(result.data))
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
+    useEffect(()=>{
+        if(pbList.length==0) getAdmins()
+    },[])
 
     return(
         <div className="access_admin">
             <div>
-                <div>Белый список почт</div>
+                <div>Список специалистов ПБ</div>
                 <br/>
                 <div className="access_admin_list">
-                    {accessList.map((element,index)=>{
-                        return <div onClick={()=>setVariableAccess(index)} className={`${variableAccess==index?"variable_item":""} access_admin_list_item`}>{element.login}</div>
+                    {pbList.map((element,index)=>{
+                        return <div key={index} onClick={()=>setVariableAccess(index)} className={`${variableAccess==index?"variable_item":""} access_admin_list_item`}>{element.login}</div>
                     })}
                     
                 </div>
             </div>
             {variableAccess!=-1?(
                 <div className="access_admin_info">
-                    <div>{accessList[variableAccess].login}</div>
+                    <div>{pbList[variableAccess].login}</div>
                     <div onClick={deleteAccess} className="access_admin_btn">Удалить</div>
                 </div>
             ):<div className="access_admin_info"/>}

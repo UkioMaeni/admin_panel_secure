@@ -35,7 +35,7 @@ const HomePage:FC =()=>{
                 throw response;
                 
             }
-            console.log(await response.json());
+            //console.log(await response.json());
             setLoading(false)
         } catch (error) {
             navigate('/auth');

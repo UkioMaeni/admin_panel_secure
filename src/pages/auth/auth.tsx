@@ -32,7 +32,7 @@ const AuthPage:FC =()=>{
              localStorage.setItem("login",login);
              localStorage.setItem("pass",pass);
             navigate("/home")
-            console.log(await response.json());
+            //console.log(await response.json());
 
         } catch (error) {
             console.log(error);
