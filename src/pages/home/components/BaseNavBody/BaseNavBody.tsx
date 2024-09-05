@@ -10,10 +10,11 @@ import { editDbCounter } from "../../../../store/slices/navSlice";
 
 const BaseNavBody:FC =()=>{
     const navigate = useNavigate();
-    const {currentTitleForAccess}=useAppSelector(state=>state.navSlice)
+    const {currentTitleForBase}=useAppSelector(state=>state.navSlice)
     const [selectedFile, setSelectedFile] = useState<FileList |null>(null);
     const [error, setError] = useState<string >("");
     const [upload, setUpload] = useState<boolean>(false);
+    
     const inputRef= useRef<HTMLInputElement >(null);
     const dispatch=useAppDispatch()
     const {dbcounter}=useAppSelector((state)=>state.navSlice);
@@ -76,6 +77,31 @@ const BaseNavBody:FC =()=>{
     useEffect(()=>{
         if(!dbcounter)getCount()
     },[])
+
+    const sendMail=async()=>{
+        setUpload(true);
+        try {
+            const result=await axios.get(
+                config.baseHttpUrl+"/admin/send_mail",
+            )
+            setError("Отправлено")
+        } catch (error) {
+            setError("Ошибка отправки")
+        } finally{
+            setUpload(false);
+        }
+    }
+if(currentTitleForBase=="Журнал"){
+    return (
+        <div className="base_nav_body center" >
+            <div className="column">
+                {upload?<CircleLoader/>: <div onClick={sendMail} className="access_admin_btn bgblue">Отправить журнал</div>}
+                <br></br>
+                {error&&!upload?<div className="nl">{error}</div>:null}
+            </div>
+        </div>
+    );
+}
     return(
         <div className="base_nav_body" >
             <div className="base_nav_body_info">
@@ -88,7 +114,7 @@ const BaseNavBody:FC =()=>{
                 <input type={"file"} ref={inputRef} accept=".xlsx,.xlsb" onChange={(event) => setSelectedFile(event.target.files)} />
                 <br/>
                 {selectedFile?!upload?<div  onClick={sendFile} className="access_admin_btn bgblue">Отправить</div>:<CircleLoader/>:null}
-                {error?<div>{error}</div>:null}
+                {error&&!upload?<div>{error}</div>:null}
             </div>
         </div>
     )

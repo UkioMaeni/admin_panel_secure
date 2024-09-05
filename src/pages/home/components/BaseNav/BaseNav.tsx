@@ -3,11 +3,12 @@ import { FC, useState } from "react"
 import './BaseNav.css';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../store/customHooks/customReactReduxHooks";
-import { editAccessTitle } from "../../../../store/slices/navSlice";
+import { editAccessTitle, editBaseTitle } from "../../../../store/slices/navSlice";
 const BaseNav:FC =()=>{
     const navigate = useNavigate();
 
-    const {currentTitleForAccess}=useAppSelector(state=>state.navSlice)
+    const {currentTitleForBase}=useAppSelector(state=>state.navSlice)
+    
     const dispatch = useAppDispatch()
     const [pass,setPass]=useState<string>("")
 
@@ -15,7 +16,8 @@ const BaseNav:FC =()=>{
     return(
         <div className="access_nav">
             <div className="togle_access">
-                <div className={`togle_item_variable center`} >Основная база</div>
+                <div className={`${currentTitleForBase=="Основная база"?"togle_item_variable":"togle_item"} center`} onClick={()=>dispatch(editBaseTitle("Основная база"))}>Основная база</div>
+                <div className={`${currentTitleForBase=="Журнал"?"togle_item_variable":"togle_item"} center`} onClick={()=>dispatch(editBaseTitle("Журнал"))}>Журнал</div>
             </div>
         </div>
     )

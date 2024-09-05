@@ -3,6 +3,7 @@ import { Action, ActionCreator, PayloadAction, createSlice } from '@reduxjs/tool
 type Init={
   currentNav:string;
   currentTitleForAccess:string;
+  currentTitleForBase:string;
   dbcounter:string;
   adminsPanel:Array<{login:string,id:number}>;
   activeMail:string;
@@ -13,6 +14,7 @@ type Init={
 const initialState:Init={
     currentNav:"База",
     currentTitleForAccess:'В админ панель',
+    currentTitleForBase : "Основная база",
     dbcounter:"",
     adminsPanel: [],
     activeMail:'',
@@ -26,6 +28,7 @@ const counterSlice = createSlice({
   reducers: {
     editNav: (state,action:PayloadAction<string>) => { state.currentNav=action.payload},
     editAccessTitle: (state,action:PayloadAction<string>) => { state.currentTitleForAccess=action.payload},
+    editBaseTitle: (state,action:PayloadAction<string>) => { state.currentTitleForBase=action.payload},
     editDbCounter: (state,action:PayloadAction<string>) => { state.dbcounter=action.payload},
     editAdmins: (state,action:PayloadAction<Array<{login:string,id:number}>>) => { state.adminsPanel=action.payload},
     editActiveMail: (state,action:PayloadAction<string>) => { state.activeMail=action.payload},
@@ -33,5 +36,5 @@ const counterSlice = createSlice({
   },
 });
 
-export const {  editNav,editAccessTitle,editDbCounter,editAdmins,editActiveMail,editPbList } = counterSlice.actions;
+export const {  editNav,editAccessTitle,editBaseTitle,editDbCounter,editAdmins,editActiveMail,editPbList } = counterSlice.actions;
 export default counterSlice.reducer;
